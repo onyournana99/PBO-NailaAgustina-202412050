@@ -1,0 +1,66 @@
+# Parent Class
+class Karyawan:
+    def __init__(self, nama, gaji_pokok):
+        self.nama = nama
+        self.gaji_pokok = gaji_pokok
+
+    def info_gaji(self):
+        return f"Karyawan: {self.nama}, Gaji Pokok: {self.gaji_pokok}"
+
+
+# Child Class Manager
+class Manager(Karyawan):
+    def __init__(self, nama, gaji_pokok, tunjangan):
+        super().__init__(nama, gaji_pokok)
+        self.tunjangan = tunjangan
+
+    def info_gaji(self):
+        total = self.gaji_pokok + self.tunjangan
+        return (f"Manager: {self.nama}, Gaji Pokok: {self.gaji_pokok}, "
+                f"Tunjangan: {self.tunjangan}, Total Gaji: {total}")
+
+
+# Child Class Programmer
+class Programmer(Karyawan):
+    def __init__(self, nama, gaji_pokok, bonus):
+        super().__init__(nama, gaji_pokok)
+        self.bonus = bonus
+
+    def info_gaji(self):
+        total = self.gaji_pokok + self.bonus
+        return (f"Programmer: {self.nama}, Gaji Pokok: {self.gaji_pokok}, "
+                f"Bonus: {self.bonus}, Total Gaji: {total}")
+
+
+# Composition Departemen
+class Departemen:
+    def __init__(self, nama_dept):
+        self.nama_dept = nama_dept
+        self.daftar_karyawan = []   # list of objects
+
+    def tambah_karyawan(self, karyawan):
+        self.daftar_karyawan.append(karyawan)
+
+    def tampilkan_karyawan(self):
+        print(f"=== Daftar Karyawan Departemen {self.nama_dept} ===")
+        for k in self.daftar_karyawan:
+            print(k.info_gaji())
+        print("---------------------------------------------")
+
+
+# Instansiasi
+m1 = Manager("Naila", 5000000, 2000000)
+m2 = Manager("Tina", 5500000, 2500000)
+
+p1 = Programmer("Siti", 4500000, 1500000)
+p2 = Programmer("Anggun", 4800000, 1800000)
+
+# departemen dan tambahkan karyawan
+dept = Departemen("IT")
+dept.tambah_karyawan(m1)
+dept.tambah_karyawan(m2)
+dept.tambah_karyawan(p1)
+dept.tambah_karyawan(p2)
+
+# Tampilkan semua info gaji
+dept.tampilkan_karyawan()
